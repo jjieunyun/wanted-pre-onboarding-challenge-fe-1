@@ -1,0 +1,40 @@
+.todo {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.5rem 1rem;
+  margin: 0.1rem 0;
+}
+
+.checkbox {
+  cursor: pointer;
+  width: 1.5rem;
+  height: 1.5rem;
+}
+
+.text {
+  cursor: pointer;
+  flex: 1 1 0%;
+  margin-left: 0.5rem;
+  font-size: 1.5rem;
+}
+
+.icon {
+  cursor: pointer;
+  width: 26px;
+  height: 26px;
+  background-color: var(--color-darkGreen);
+  border-radius: 100%;
+  transition: 0.15s all ease-out;
+}
+
+.icon:hover {
+  background-color: var(--color-green);
+  transform: rotate(15deg) scale(1.2);
+}
+
+.button {
+  cursor: pointer;
+  color: var(--color-white);
+  background-color: transparent;
+}

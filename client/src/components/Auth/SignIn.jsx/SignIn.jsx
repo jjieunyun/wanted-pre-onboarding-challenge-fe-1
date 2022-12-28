@@ -3,7 +3,6 @@ import styles from "./SignIn.module.css";
 import Logo from "../../../assets/Logo_ink.png";
 import { useState } from "react";
 import { emailRegex } from "../../../utils/emailRegex";
-import { useEffect } from "react";
 
 export default function SignIn() {
   const [email, setEmail] = useState({
@@ -14,10 +13,7 @@ export default function SignIn() {
     value: "",
     isError: false,
   });
-
-  const handleLogin = (e) => {
-    e.preventdefault();
-  };
+  const [isSignUp, setIsSignUp] = useState(false);
 
   const handleEmailValue = (e) => {
     const text = e.target.value;
@@ -41,10 +37,9 @@ export default function SignIn() {
     }
   };
 
-  console.log(email.isError);
-  console.log(pw.isError);
-  console.log(email.value !== "");
-  console.log(pw.value !== "");
+  const buttonValidation = () => {
+    // !(!email.isError && !pw.isError) && email.value === "" && pw.value === "";
+  };
 
   return (
     <section className={styles.section}>
@@ -53,7 +48,7 @@ export default function SignIn() {
         <span className={styles.logo_title}>My Todo App</span>
         <img src={Logo} alt="logo" className={styles.logo_images} />
       </div>
-      <form onSubmit={handleLogin}>
+      <form>
         <div className={`${styles.input} ${styles.id}`}>
           <label htmlFor="id">ID</label>
           <input
@@ -83,21 +78,27 @@ export default function SignIn() {
           </span>
         </div>
         <div className={styles.buttons}>
-          <button
-            className={styles.signIn}
-            type="submit"
-            disabled={
-              !(
-                email.value === "" &&
-                pw.value === "" &&
-                !email.isError &&
-                !pw.isError
-              )
-            }
-          >
-            LogIn
+          <button className={styles.signIn} type="button" disabled={true}>
+            {isSignUp ? "Join" : "Login"}
           </button>
-          <button className={styles.signUp}>Sign Up!</button>
+          {isSignUp || (
+            <button
+              className={styles.signUp}
+              type="button"
+              onClick={() => setIsSignUp(true)}
+            >
+              SignUp!
+            </button>
+          )}
+          {isSignUp && (
+            <button
+              className={styles.signUp}
+              type="button"
+              onClick={() => setIsSignUp(false)}
+            >
+              LogIn!
+            </button>
+          )}
         </div>
       </form>
     </section>

@@ -59,6 +59,13 @@
   outline: none !important;
 }
 
+.errorMessage {
+  text-align: right;
+  font-size: 1rem;
+  margin-top: 0.5rem;
+  color: var(--color-red);
+}
+
 .buttons {
   display: flex;
   flex-direction: column;
@@ -81,6 +88,15 @@
 
 .signIn:hover {
   filter: brightness(125%);
+}
+
+.signIn:disabled {
+  background-color: var(--color-grey);
+  color: var(--color-white);
+}
+
+.signIn:disabled:hover {
+  filter: brightness(100%);
 }
 
 .signUp {

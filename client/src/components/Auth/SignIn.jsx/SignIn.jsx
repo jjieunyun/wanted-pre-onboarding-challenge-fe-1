@@ -17,30 +17,26 @@ export default function SignIn() {
 
   const handleEmailValue = (e) => {
     const text = e.target.value;
-    setEmail({ ...email, value: text });
 
-    if (!emailRegex.test(text) && text.length > 0) {
-      setEmail({ ...email, isError: true });
+    if ((!emailRegex.test(text) && text.length > 0) || text === "") {
+      setEmail({ ...email, value: text, isError: true });
     } else {
-      setEmail({ ...email, isError: false });
+      setEmail({ ...email, value: text, isError: false });
     }
   };
 
   const handlePwValue = (e) => {
     const text = e.target.value;
-    setPw({ ...pw, value: text });
 
-    if (text.length > 0 && text.length < 8) {
-      setPw({ ...pw, isError: true });
+    if (text.length < 8 || text === "") {
+      setPw({ ...pw, value: text, isError: true });
     } else {
-      setPw({ ...pw, isError: false });
+      setPw({ ...pw, value: text, isError: false });
     }
   };
 
-  const buttonValidation = () => {
-    // !(!email.isError && !pw.isError) && email.value === "" && pw.value === "";
-  };
-
+  console.log(email.isError);
+  console.log(pw.isError);
   return (
     <section className={styles.section}>
       <div className={styles.logo}>
@@ -78,7 +74,16 @@ export default function SignIn() {
           </span>
         </div>
         <div className={styles.buttons}>
-          <button className={styles.signIn} type="button" disabled={true}>
+          <button
+            className={styles.signIn}
+            type="button"
+            disabled={
+              email.isError ||
+              pw.isError ||
+              email.value === "" ||
+              pw.value === ""
+            }
+          >
             {isSignUp ? "Join" : "Login"}
           </button>
           {isSignUp || (

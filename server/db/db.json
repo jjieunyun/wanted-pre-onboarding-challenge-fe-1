@@ -1,4 +1,26 @@
 {
   "todos": [],
-  "users": []
+  "users": [
+    {
+      "email": "1234@naver.com",
+      "password": "11111111",
+      "id": "gZ3zoXV_VwGkXTNhG9sPT",
+      "createdAt": "2023-01-02T13:07:14.283Z",
+      "updatedAt": "2023-01-02T13:07:14.283Z"
+    },
+    {
+      "email": "123@naver.com",
+      "password": "11111111",
+      "id": "Ir-9Y73NKobnMdS_JDUvu",
+      "createdAt": "2023-01-02T13:09:47.534Z",
+      "updatedAt": "2023-01-02T13:09:47.534Z"
+    },
+    {
+      "email": "111@naver.com",
+      "password": "11111111",
+      "id": "AoKY-8aGtaLKiEaKDHWAg",
+      "createdAt": "2023-01-02T13:10:21.893Z",
+      "updatedAt": "2023-01-02T13:10:21.893Z"
+    }
+  ]
 }

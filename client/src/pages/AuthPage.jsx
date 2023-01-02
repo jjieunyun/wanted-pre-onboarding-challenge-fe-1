@@ -1,10 +1,10 @@
 import React from "react";
 import SignIn from "../components/Auth/SignIn.jsx/SignIn";
 
-export default function AuthPage() {
+export default function AuthPage({ auth }) {
   return (
-    <section>
-      <SignIn />
-    </section>
+    <>
+      <SignIn auth={auth} />
+    </>
   );
 }

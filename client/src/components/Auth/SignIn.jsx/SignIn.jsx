@@ -1,10 +1,13 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import styles from "./SignIn.module.css";
 import Logo from "../../../assets/Logo_ink.png";
 import { useState } from "react";
 import { emailRegex } from "../../../utils/emailRegex";
 
-export default function SignIn() {
+export default function SignIn({ auth }) {
+  const navigate = useNavigate();
+
   const [email, setEmail] = useState({
     value: "",
     isError: false,
@@ -35,8 +38,25 @@ export default function SignIn() {
     }
   };
 
-  console.log(email.isError);
-  console.log(pw.isError);
+  const handleAuth = async () => {
+    if (isSignUp) {
+      await auth.signUp(email.value, pw.value).then((result) => {
+        // localStorage.setItem("token", JSON.stringify(result));
+      });
+    } else {
+      await auth.logIn(email.value, pw.value).then((result) => {
+        localStorage.setItem("token", JSON.stringify(result));
+      });
+    }
+  };
+
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    // if (token) {
+    //   navigate("/todos");
+    // }
+  });
+
   return (
     <section className={styles.section}>
       <div className={styles.logo}>
@@ -52,11 +72,8 @@ export default function SignIn() {
             placeholder="your Email"
             onChange={(e) => handleEmailValue(e)}
           />
-          <span
-            className={styles.errorMessage}
-            style={{ display: email.isError ? "block" : "none" }}
-          >
-            *이메일 주소를 확인해주세요.
+          <span className={styles.errorMessage} style={{ display: "block" }}>
+            {email.isError ? "*이메일 주소를 확인해주세요." : ""}
           </span>
         </div>
         <div className={`${styles.input} ${styles.pw}`}>
@@ -66,17 +83,15 @@ export default function SignIn() {
             placeholder="your Password"
             onChange={(e) => handlePwValue(e)}
           />
-          <span
-            className={styles.errorMessage}
-            style={{ display: pw.isError ? "block" : "none" }}
-          >
-            *비밀번호를 확인해주세요.
+          <span className={styles.errorMessage} style={{ display: "block" }}>
+            {pw.isError ? "*비밀번호를 확인해주세요." : ""}
           </span>
         </div>
         <div className={styles.buttons}>
           <button
             className={styles.signIn}
             type="button"
+            onClick={handleAuth}
             disabled={
               email.isError ||
               pw.isError ||

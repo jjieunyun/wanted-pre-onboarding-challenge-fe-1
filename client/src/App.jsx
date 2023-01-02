@@ -4,27 +4,25 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
 import TodoPage from "./pages/TodoPage";
 import AuthPage from "./pages/AuthPage";
-import SignUp from "./pages/SignUp";
+import authApi from "./api/auth";
+
+const auth = new authApi();
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <AuthPage />,
+    element: <AuthPage auth={auth} />,
   },
   {
     path: "/todos",
     element: <TodoPage />,
-  },
-  {
-    path: "/auth",
-    element: <SignUp />,
   },
 ]);
 
 function App() {
   return (
     <DarkModeProvider>
-      <RouterProvider router={router} />
+      <RouterProvider router={router} auth={auth} />
     </DarkModeProvider>
   );
 }

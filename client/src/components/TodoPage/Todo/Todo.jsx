@@ -2,8 +2,14 @@ import React from "react";
 import styles from "./Todo.module.css";
 import { FaTrashAlt } from "react-icons/fa";
 
-export default function Todo({ todo, onUpdate, onDelete }) {
-  const { id, text, status } = todo;
+export default function Todo({
+  todo,
+  onUpdate,
+  onDelete,
+  setSelectedTodo,
+  setIsAdd,
+}) {
+  const { id, text, title, status } = todo;
 
   const handleChange = (e) => {
     const status = e.target.checked ? "completed" : "active";
@@ -12,6 +18,11 @@ export default function Todo({ todo, onUpdate, onDelete }) {
 
   const handleDelete = () => {
     onDelete(todo);
+  };
+
+  const onClickTodo = () => {
+    setSelectedTodo(todo);
+    setIsAdd(false);
   };
 
   return (
@@ -23,8 +34,8 @@ export default function Todo({ todo, onUpdate, onDelete }) {
         checked={status === "completed"}
         onChange={handleChange}
       />
-      <label htmlFor={id} className={styles.text}>
-        {text}
+      <label className={styles.text} onClick={onClickTodo}>
+        {title}
       </label>
       <span className={styles.icon}>
         <button className={styles.button} onClick={handleDelete}>

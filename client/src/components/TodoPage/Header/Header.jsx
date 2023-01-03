@@ -3,7 +3,13 @@ import { useDarkMode } from "../../../context/DarkModeContext";
 import styles from "./Header.module.css";
 import { HiMoon, HiSun } from "react-icons/hi";
 
-export default function Header({ filters, filter, onFilterChange }) {
+export default function Header({
+  filters,
+  filter,
+  onFilterChange,
+  setIsAdd,
+  isAdd,
+}) {
   const { darkMode, toggleDarkMode } = useDarkMode();
 
   return (
@@ -26,6 +32,9 @@ export default function Header({ filters, filter, onFilterChange }) {
             </button>
           </li>
         ))}
+        <button onClick={() => setIsAdd(!isAdd)} className={styles.addTodo}>
+          Add
+        </button>
       </ul>
     </header>
   );

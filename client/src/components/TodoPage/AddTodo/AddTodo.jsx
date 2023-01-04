@@ -3,19 +3,25 @@ import { useState } from "react";
 import { v4 as uuidv4 } from "uuid";
 import styles from "./AddTodo.module.css";
 
-export default function AddTodo({ onAdd }) {
+export default function AddTodo({ todo,fetchTodos }) {
   const [title, setTitle] = useState("");
   const [text, setText] = useState("");
+  const token = localStorage.getItem("token");
 
   const handleTitleChange = (e) => setTitle(e.target.value);
   const handleTextChange = (e) => setText(e.target.value);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     if (text.trim().length === 0) {
       return;
     }
-    onAdd({ id: uuidv4(), title, text, status: "active" });
+    await todo
+      .createTodo(token, title, text)
+      .then((result) => {
+        alert('투두리스트가 등록되었습니다.')
+        fetchTodos()
+      });
     setText("");
     setTitle("");
   };

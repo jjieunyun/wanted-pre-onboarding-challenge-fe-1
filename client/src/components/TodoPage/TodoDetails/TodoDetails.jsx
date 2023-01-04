@@ -1,20 +1,26 @@
-import React from "react";
+import React, {useState, useEffect} from "react";
 import styles from "./TodoDetails.module.css";
 
-function TodoDetails({ selectedTodo }) {
-  const { title, text } = selectedTodo;
+function TodoDetails({ selectedTodo,todo,fetchTodos }) {
+  const token = localStorage.getItem("token");
+  const [updatedTitle, setUpdatedTitle] = useState('')
+  const [updatedContent, setUpdatedContent] = useState('')
 
-  const handleTitleChange = (e) => console.log(e.target.value);
-  const handleTextChange = (e) => console.log(e.target.value);
+  useEffect(() => {
+    setUpdatedTitle(selectedTodo.title)
+    setUpdatedContent(selectedTodo.content)
+  }, [selectedTodo]);
 
-  const handleSubmit = (e) => {
-    // e.preventDefault();
-    // if (text.trim().length === 0) {
-    //   return;
-    // }
-    // onAdd({ id: uuidv4(), title, text, status: "active" });
-    // setText("");
-    // setTitle("");
+
+  const handleTitleChange = (e) => setUpdatedTitle(e.target.value);
+  const handleTextChange = (e) => setUpdatedContent(e.target.value);
+
+  const handleSubmit = async (e) => {
+    e.preventDefault()
+    await todo.updateTodo(token,selectedTodo.id,updatedTitle,updatedContent).then(()=> {
+      alert('투두가 변경되었습니다')
+      fetchTodos()
+    })
   };
 
   return (
@@ -22,13 +28,12 @@ function TodoDetails({ selectedTodo }) {
       <input
         className={styles.title}
         type="text"
-        value={title}
+        value={updatedTitle}
         onChange={handleTitleChange}
       />
       <textarea
         className={styles.contents}
-        type="text"
-        value={text}
+        value={updatedContent}
         onChange={handleTextChange}
       />
       <button className={styles.button}>Edit</button>

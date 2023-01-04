@@ -1,40 +1,34 @@
-import React, { useState } from "react";
-import { useEffect } from "react";
+import React, {useState} from "react";
+import {useEffect} from "react";
 // import AddTodo from "../AddtTodo/AddTodo";
 import AddTodo from "../AddTodo/AddTodo";
 import Todo from "../Todo/Todo";
 import styles from "./TodoList.module.css";
 
 export default function TodoPage({
-  filter,
-  todos,
-  setTodos,
-  setSelectedTodo,
-  setIsAdd,
-}) {
-  const handleUpdate = (updated) =>
-    setTodos(todos.map((t) => (t.id === updated.id ? updated : t)));
+                                   filter,
+                                   todoList,
+                                   fetchTodos,
+                                   setSelectedTodo,
+                                   setIsAdd,
+                                   todo,
+                                 }) {
 
-  const handleDelete = (deleted) =>
-    setTodos(todos.filter((t) => t.id !== deleted.id));
 
-  useEffect(() => {
-    localStorage.setItem("todos", JSON.stringify(todos));
-  }, [todos]);
 
-  const filtered = getFilteredItems(todos, filter);
+  // const filtered = getFilteredItems(todos, filter);
 
   return (
     <section className={styles.container}>
       <ul className={styles.list}>
-        {filtered.map((item) => (
+        {todoList.map((item) => (
           <Todo
             key={item.id}
-            todo={item}
-            onUpdate={handleUpdate}
-            onDelete={handleDelete}
+            item={item}
+            todo={todo}
             setSelectedTodo={setSelectedTodo}
             setIsAdd={setIsAdd}
+            fetchTodos={fetchTodos}
           />
         ))}
       </ul>
@@ -42,9 +36,9 @@ export default function TodoPage({
   );
 }
 
-function getFilteredItems(todos, filter) {
-  if (filter === "all") {
-    return todos;
-  }
-  return todos.filter((todo) => todo.status === filter);
-}
+// function getFilteredItems(todos, filter) {
+//   if (filter === "all") {
+//     return todos;
+//   }
+//   return todos.filter((todo) => todo.status === filter);
+// }

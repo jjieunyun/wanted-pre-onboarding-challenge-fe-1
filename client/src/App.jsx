@@ -5,8 +5,10 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import TodoPage from "./pages/TodoPage";
 import AuthPage from "./pages/AuthPage";
 import authApi from "./api/auth";
+import todoApi from "./api/todo";
 
 const auth = new authApi();
+const todo = new todoApi();
 
 const router = createBrowserRouter([
   {
@@ -15,7 +17,7 @@ const router = createBrowserRouter([
   },
   {
     path: "/todos",
-    element: <TodoPage />,
+    element: <TodoPage todo={todo} />,
   },
 ]);
 

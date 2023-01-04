@@ -2,6 +2,7 @@ import React from "react";
 import { useDarkMode } from "../../../context/DarkModeContext";
 import styles from "./Header.module.css";
 import { HiMoon, HiSun } from "react-icons/hi";
+import { useNavigate } from "react-router-dom";
 
 export default function Header({
   filters,
@@ -11,13 +12,23 @@ export default function Header({
   isAdd,
 }) {
   const { darkMode, toggleDarkMode } = useDarkMode();
+  const navigate = useNavigate();
 
+  const deleteToken = () => {
+    localStorage.removeItem("token");
+    navigate("/");
+  };
   return (
     <header className={styles.header}>
-      <button onClick={toggleDarkMode} className={styles.toggle}>
-        {!darkMode && <HiMoon />}
-        {darkMode && <HiSun />}
-      </button>
+      <div>
+        <button onClick={toggleDarkMode} className={styles.toggle}>
+          {!darkMode && <HiMoon />}
+          {darkMode && <HiSun />}
+        </button>
+        <button className={styles.LogoutBtn} onClick={deleteToken}>
+          Logout
+        </button>
+      </div>
 
       <ul className={styles.filters}>
         {filters.map((value, index) => (

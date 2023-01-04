@@ -40,21 +40,22 @@ export default function SignIn({ auth }) {
 
   const handleAuth = async () => {
     if (isSignUp) {
-      await auth.signUp(email.value, pw.value).then((result) => {
-        // localStorage.setItem("token", JSON.stringify(result));
-      });
+      await auth.signUp(email.value, pw.value).then((result) => {});
     } else {
       await auth.logIn(email.value, pw.value).then((result) => {
-        localStorage.setItem("token", JSON.stringify(result));
+        if (result) {
+          localStorage.setItem("token", JSON.stringify(result));
+          navigate("/todos");
+        }
       });
     }
   };
 
   useEffect(() => {
     const token = localStorage.getItem("token");
-    // if (token) {
-    //   navigate("/todos");
-    // }
+    if (token) {
+      navigate("/todos");
+    }
   });
 
   return (

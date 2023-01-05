@@ -63,7 +63,7 @@ class todoApi {
     const response = await this.todo
       .put(
         `/todos/${id}`,
-        { title, content },
+        { title, content,status : true },
         {
           headers: {
             Authorization: token,

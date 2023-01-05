@@ -53,12 +53,12 @@ export const getTodoById = (req: Request, res: Response) => {
 
 export const updateTodo = async (req: Request, res: Response) => {
   const todoId = req.params.id;
-  const { title, content } = req.body;
+  const { title, content, status } = req.body;
 
   const todo = todoService.findTodo((todo) => todo.id === todoId);
 
   if (todo) {
-    await todoService.updateTodo(todo, { title, content });
+    await todoService.updateTodo(todo, { title, content, status });
 
     return res.status(StatusCodes.OK).send(createResponse(todo));
   } else {

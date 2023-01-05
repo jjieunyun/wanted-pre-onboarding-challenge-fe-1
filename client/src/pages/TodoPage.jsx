@@ -28,6 +28,7 @@ export default function TodoPage({ todo }) {
     fetchTodos();
   }, []);
 
+
   return (
     <div className={styles.TodoPage}>
       <Header
@@ -67,3 +68,4 @@ export default function TodoPage({ todo }) {
 //   const todos = localStorage.getItem("todos");
 //   return todos ? JSON.parse(todos) : [];
 // }
+

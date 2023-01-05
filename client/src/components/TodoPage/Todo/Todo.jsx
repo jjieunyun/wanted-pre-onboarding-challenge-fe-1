@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect, useState} from "react";
 import styles from "./Todo.module.css";
 import {FaTrashAlt} from "react-icons/fa";
 
@@ -10,11 +10,18 @@ export default function Todo({
                                fetchTodos
                              }) {
   const token = localStorage.getItem("token");
-  const {id, title} = item;
-  const handleChange = (e) => {
-    // const status = e.target.checked ? "completed" : "active";
-    // onUpdate({ ...todo, status });
+  const {id, title, content, status} = item;
+
+  const [updatedStatus, setUpdatedStatus] = useState(false)
+  useEffect(() => {
+    setUpdatedStatus(status)
+  }, [])
+
+  const handleChange = async () => {
+    setUpdatedStatus(!updatedStatus)
+    await todo.updateTodo(token, id, title, content, !updatedStatus).then(()=>fetchTodos())
   };
+
 
   const handleDelete = async () => {
     await todo.deleteTodo(token, id).then(() => {
@@ -34,7 +41,7 @@ export default function Todo({
         className={styles.checkbox}
         type="checkbox"
         id={id}
-        // checked={status === "completed"}
+        checked={updatedStatus}
         onChange={handleChange}
       />
       <label className={styles.text} onClick={onClickTodo}>

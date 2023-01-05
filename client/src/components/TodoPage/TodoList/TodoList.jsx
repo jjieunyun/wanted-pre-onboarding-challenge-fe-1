@@ -1,7 +1,4 @@
 import React, {useState} from "react";
-import {useEffect} from "react";
-// import AddTodo from "../AddtTodo/AddTodo";
-import AddTodo from "../AddTodo/AddTodo";
 import Todo from "../Todo/Todo";
 import styles from "./TodoList.module.css";
 
@@ -14,14 +11,12 @@ export default function TodoPage({
                                    todo,
                                  }) {
 
-
-
-  // const filtered = getFilteredItems(todos, filter);
+  const filtered = getFilteredItems(todoList, filter);
 
   return (
     <section className={styles.container}>
       <ul className={styles.list}>
-        {todoList.map((item) => (
+        {filtered.map((item) => (
           <Todo
             key={item.id}
             item={item}
@@ -36,9 +31,15 @@ export default function TodoPage({
   );
 }
 
-// function getFilteredItems(todos, filter) {
-//   if (filter === "all") {
-//     return todos;
-//   }
-//   return todos.filter((todo) => todo.status === filter);
-// }
+function getFilteredItems(todoList, filter) {
+  if (filter === "all") {
+    return todoList;
+  }
+
+  if(filter === 'active'){
+    return todoList.filter((todo) => !todo.status);
+  }else {
+    return todoList.filter((todo) => todo.status);
+  }
+
+}

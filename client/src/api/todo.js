@@ -59,11 +59,11 @@ class todoApi {
     }
   }
 
-  async updateTodo(token, id, title, content) {
+  async updateTodo(token, id, title, content,status) {
     const response = await this.todo
       .put(
         `/todos/${id}`,
-        { title, content,status : true },
+        { title, content,status},
         {
           headers: {
             Authorization: token,
